@@ -1,0 +1,23 @@
+{
+  "name": "DENLED",
+  "title": "Hệ thống đèn Led",
+
+  "source": "HSG9-HCM-2026",
+  "difficulty": "easy",
+  "rating": 1200,
+
+  "tags": [
+    "dp",
+    "knapsack",
+    "subsetsum",
+    "modular arithmetic",
+    "implementation"
+  ],
+
+  "limits": {
+    "time_limit_sec": 1,
+    "memory_limit_mb": 1024
+  },
+
+  "interactive": false
+}

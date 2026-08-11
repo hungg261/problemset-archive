@@ -1,0 +1,39 @@
+\makeproblem{TRAMCB}{Trạm cảm biến}{1.0s}{1024 MB}
+
+Cho $n$ cảm biến đất và $m$ cảm biến không khí, chia thành các trạm sao cho:
+
+\begin{itemize}
+    \item Mỗi trạm có số lượng cảm biến đất bằng nhau.
+    \item Mỗi trạm có số lượng cảm biến không khí bằng nhau.  
+    \item Sử dụng hết tất cả các cảm biến.
+\end{itemize}
+
+\makesection{Input}
+\begin{itemize}
+    \item Dòng đầu tiên chứa hai số nguyên $n, m$ $(1 \le n, m \le 10^{18})$.
+\end{itemize}
+
+\makesection{Output}
+\begin{itemize}
+    \item Dòng đầu tiên: số trạm tối đa có thể chia được.
+    \item Dòng thứ hai: số cảm biến đất và số cảm biến không khí tại mỗi trạm.
+\end{itemize}
+
+\begin{makesubtasks}
+    \subtask{40} $n, m \le 10^{7}$.
+    \subtask{60} $n, m \le 10^{18}$.
+\end{makesubtasks}
+
+\makesection{Ví dụ}
+
+\subsubsection*{Ví dụ 1}
+\begin{makesample}
+\begin{lstlisting}
+120 160
+\end{lstlisting}
+\nextsample
+\begin{lstlisting}
+40
+3 4
+\end{lstlisting}
+\end{makesample}

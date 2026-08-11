@@ -1,22 +1,15 @@
 {
-  "name": "TRAMCB",
-  "title": "Trạm cảm biến",
-
-  "source": "HSG9-HCM-2026",
-  "difficulty": "easy",
-  "rating": 800,
-
-  "tags": [
-    "gcd",
-    "math",
-    "number theory",
-    "implementation"
-  ],
-
-  "limits": {
-    "time_limit_sec": 1,
-    "memory_limit_mb": 1024
-  },
-
-  "interactive": false
+    "problem_name": "Tr\u1ea1m c\u1ea3m bi\u1ebfn",
+    "solution_file": "solutions/ma_solution.cpp",
+    "input_extension": ".in",
+    "output_extension": ".out",
+    "source": "HCM-HSG9",
+    "time_limit_ms": 1000,
+    "memory_limit_mb": 1024,
+    "rating": 800,
+    "tags": [
+        "number theory"
+    ],
+    "checker": "ncmp",
+    "generator_args": "--max_val=10000000"
 }

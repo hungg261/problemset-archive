@@ -1,0 +1,22 @@
+{
+  "name": "TRAMCB",
+  "title": "Trạm cảm biến",
+
+  "source": "HSG9-HCM-2026",
+  "difficulty": "easy",
+  "rating": 800,
+
+  "tags": [
+    "gcd",
+    "math",
+    "number theory",
+    "implementation"
+  ],
+
+  "limits": {
+    "time_limit_sec": 1,
+    "memory_limit_mb": 1024
+  },
+
+  "interactive": false
+}

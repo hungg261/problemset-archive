@@ -1,23 +1,16 @@
 {
-  "name": "DENLED",
-  "title": "Hệ thống đèn Led",
-
-  "source": "HSG9-HCM-2026",
-  "difficulty": "easy",
-  "rating": 1200,
-
-  "tags": [
-    "dp",
-    "knapsack",
-    "subsetsum",
-    "modular arithmetic",
-    "implementation"
-  ],
-
-  "limits": {
-    "time_limit_sec": 1,
-    "memory_limit_mb": 1024
-  },
-
-  "interactive": false
+    "problem_name": "H\u1ec7 th\u1ed1ng \u0111\u00e8n Led",
+    "solution_file": "solutions/ma_solution.cpp",
+    "input_extension": ".in",
+    "output_extension": ".out",
+    "source": "HCM-HSG9",
+    "time_limit_ms": 1000,
+    "memory_limit_mb": 1024,
+    "rating": 1400,
+    "tags": [
+        "dp",
+        "modular arithmetic"
+    ],
+    "checker": "ncmp",
+    "generator_args": "--max_n=10 --max_val=100"
 }

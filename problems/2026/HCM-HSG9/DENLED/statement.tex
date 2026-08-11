@@ -1,0 +1,50 @@
+\makeproblem{DENLED}{Hệ thống đèn Led}{1.0s}{1024 MB}
+
+Cho một dãy gồm $n$ chiếc đèn LED, mỗi đèn thứ $i$ có công suất là một số nguyên dương $a_i$. Người ta muốn chọn ra một tập hợp các đèn (không nhất thiết phải liên tiếp nhau) sao cho tổng công suất của các đèn được chọn là \textbf{lớn nhất} và thỏa mãn các điều kiện sau:
+
+\begin{itemize}
+    \item Tổng công suất chia hết cho một số nguyên dương $k$.
+    \item Tổng công suất phải lớn hơn hoặc bằng $k$.
+\end{itemize}
+
+\makesection{Input}
+\begin{itemize}
+    \item Dòng đầu tiên chứa hai số nguyên dương $n$ và $k$ ($1 \le n \le 1000, 1 \le k \le 100$).
+    \item Dòng thứ hai chứa $n$ số nguyên dương $a_1, a_2, \dots, a_n$ ($1 \le a_i \le 10^9$).
+\end{itemize}
+
+\makesection{Output}
+\begin{itemize}
+    \item Một số nguyên duy nhất là tổng công suất lớn nhất tìm được. Nếu không có phương án nào thỏa mãn các điều kiện trên, in ra $0$.
+\end{itemize}
+
+\begin{makesubtasks}
+    \subtask{30} $1 \le n \le 20, a_i \le 50$.
+    \subtask{20} $1 \le n \le 1000, k = 2$.
+    \subtask{20} $1 \le n \le 1000$, tổng của dãy: $\sum a \le 10^4$.
+    \subtask{30} Không có giới hạn gì thêm.
+\end{makesubtasks}
+
+\makesection{Ví dụ}
+
+\subsubsection*{Ví dụ 1}
+\begin{makesample}
+\begin{lstlisting}
+3 6
+10 2 4
+\end{lstlisting}
+\nextsample
+\begin{lstlisting}
+12
+\end{lstlisting}
+\end{makesample}
+
+\begin{explain}
+Các tập con có tổng chia hết cho $6$ và lớn hơn hoặc bằng $6$ là:
+\begin{itemize}
+    \item Chọn đèn $\{10, 2\}$: Tổng là $10 + 2 = 12$ (thỏa mãn $12 \vdots 6$ và $12 \ge 6$).
+    \item Chọn đèn $\{2, 4\}$: Tổng là $2 + 4 = 6$ (thỏa mãn $6 \vdots 6$ và $6 \ge 6$).
+\end{itemize}
+
+Trong các phương án, tổng lớn nhất tìm được là $12$.
+\end{explain}
