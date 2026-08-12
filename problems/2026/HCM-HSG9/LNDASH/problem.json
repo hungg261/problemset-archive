@@ -1,11 +1,16 @@
 {
-    "problem_name": "unspecified",
+    "problem_name": "Trò chơi LineDash",
     "solution_file": "solutions/ma_solution.cpp",
     "input_extension": ".in",
     "output_extension": ".out",
-    "source": "unspecified",
+    "source": "HCM-HSG9",
     "time_limit_ms": 1000,
-    "memory_limit_mb": 256,
+    "memory_limit_mb": 1024,
     "rating": 0,
-    "tags": ["unspecified"]
+    "tags": [
+        "binary search",
+        "prefix sum"
+    ],
+    "checker": "rcmp6",
+    "generator_args": "--max_n=5 --max_q=10 --param=edge"
 }
