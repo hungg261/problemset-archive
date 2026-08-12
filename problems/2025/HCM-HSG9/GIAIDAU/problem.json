@@ -1,6 +1,6 @@
 {
     "problem_name": "Giải đấu",
-    "solution_file": "solutions/solution1.cpp",
+    "solution_file": "solutions/ma_solution1.cpp",
     "input_extension": ".in",
     "output_extension": ".out",
     "source": "hsg9-hcm",
@@ -11,5 +11,6 @@
         "binary search",
         "prefix sum"
     ],
-    "checker": "ncmp"
+    "checker": "ncmp",
+    "generator_args": "--min_n=3 --max_n=10 --max_val=20 --min_q=5 --max_q=10"
 }

@@ -1,6 +1,6 @@
 {
     "problem_name": "Khu vực",
-    "solution_file": "solutions/solution.cpp",
+    "solution_file": "solutions/ma_solution.cpp",
     "input_extension": ".in",
     "output_extension": ".out",
     "source": "hsg9-hcm",
@@ -11,5 +11,6 @@
         "math",
         "number theory"
     ],
-    "checker": "ncmp"
+    "checker": "ncmp",
+    "generator_args": "--min_n=2 --max_n=10 --max_val=20 --gcd=-5"
 }
