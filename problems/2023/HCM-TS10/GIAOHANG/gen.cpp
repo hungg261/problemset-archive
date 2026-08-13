@@ -9,6 +9,7 @@ int main(int argc, char* argv[]) {
     int n = rnd.next(opt<int>("min_n", 2), opt<int>("max_n", (int)3e5));
     int m = rnd.next(opt<int>("min_m", 3), opt<int>("max_m", (int)1e9));
     int special = opt<int>("special", 0);
+    if(special == -1) special = rnd.next(1, 3) > 1 ? 0 : 1;
 
     println(n, m);
 
