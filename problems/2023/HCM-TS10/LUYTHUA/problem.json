@@ -10,5 +10,6 @@
     "tags": [
         "implementation"
     ],
-    "checker": "ncmp"
+    "checker": "ncmp",
+    "generator_args": "--max_n=8"
 }

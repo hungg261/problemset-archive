@@ -10,5 +10,6 @@
     "tags": [
         "greedy"
     ],
-    "checker": "ncmp"
+    "checker": "ncmp",
+    "generator_args": "--max_n=10 --max_m=20 --special=-1"
 }

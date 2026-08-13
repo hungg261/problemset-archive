@@ -11,5 +11,6 @@
         "binary search",
         "greedy"
     ],
-    "checker": "ncmp"
+    "checker": "ncmp",
+    "generator_args": "--max_k=10 --max_n=10"
 }
