@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
     
     int n = rnd.next(opt<int>("min_n", 1), opt<int>("max_n", 20));
     int min_val = 10;
-    int max_val = opt<int>("max_val", 9999);
+    int max_val = opt<int>("max_val", 10000) - 1;
     
     ensure(min_val <= max_val);
 
