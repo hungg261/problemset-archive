@@ -6,7 +6,7 @@
     "source": "HCM-HSG9",
     "time_limit_ms": 1000,
     "memory_limit_mb": 1024,
-    "rating": 0,
+    "rating": 1500,
     "tags": [
         "binary search",
         "prefix sum"
