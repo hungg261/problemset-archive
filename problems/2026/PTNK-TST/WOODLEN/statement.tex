@@ -1,0 +1,39 @@
+\makeproblem{WOODLEN}{Bài 3}{1.0s}{1024 MB}
+
+\noindent Cho $n$ khúc gỗ có độ dài lần lượt là $a_1, a_2, \dots, a_n$. Tại mỗi thao tác ta được phép chọn một khúc gỗ và tách nó ra thành 02 khúc gỗ nhỏ hơn khác rỗng có độ dài bất kì. Vậy sau $k$ thao tác, ta sẽ có $n+k$ khúc gỗ.
+
+\noindent Với mỗi câu hỏi có $k = 1, 2, \dots, m$, hãy tìm cách thực hiện $k$ thao tác sao cho sau cùng, chênh lệch độ dài giữa khúc gỗ dài nhất và khúc gỗ ngắn nhất là nhỏ nhất. Lưu ý, mỗi câu hỏi $k$ độc lập với nhau.
+
+\makesection{Input}
+\begin{itemize}
+    \item Dòng đầu tiên chứa số nguyên $n, m \, (1 \le n \le 10^{5}, 1 \le m \le 2 \times 10^{5})$.
+    \item Dòng tiếp theo chứa $n$ số nguyên $a_1, a_2, \dots, a_n \, (1 \le a_i \le 10^{9})$ là độ dài ban đầu của từng khúc gỗ.
+\end{itemize}
+
+\makesection{Output}
+\begin{itemize}
+    \item In ra $m$ số nguyên trên một dòng, cách nhau một khoảng trắng là kết quả của mỗi câu hỏi.
+\end{itemize}
+
+\begin{makesubtasks}
+    \subtask{15} $n \le 5, m \le 10, a_i \le 10$.
+    \subtask{15} $n \le 1000, m \le 2000, a_i \le 3$.
+    \subtask{15} $n \le 1000, m \le 2, a_i \le 1000$.
+    \subtask{20} $n \le 100, m \le 200, a_i \le 2000$.
+    \subtask{20} $n \le 1000, m \le 2000$.
+    \subtask{15} Không có ràng buộc gì thêm.
+\end{makesubtasks}
+
+\makesection{Ví dụ}
+
+\subsubsection*{Ví dụ 1}
+\begin{makesample}
+\begin{lstlisting}
+3 3
+12 5 4
+\end{lstlisting}
+\nextsample
+\begin{lstlisting}
+2 1 2
+\end{lstlisting}
+\end{makesample}

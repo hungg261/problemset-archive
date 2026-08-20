@@ -1,0 +1,39 @@
+\makeproblem{AUTOWORD}{Bài 2}{1.0s}{1024 MB}
+
+\noindent Cho $m$ từ cấm, một xâu hợp lệ là một xâu không chứa bất cứ từ cấm nào dưới dạng xâu con liên tiếp của nó. Ví dụ, với một từ cấm là \texttt{abc} thì xâu \texttt{zzabcxy} là xâu không hợp lệ, còn xâu \texttt{abxzac} là xâu hợp lệ.
+
+\noindent Hãy đếm số xâu chỉ gồm các kí tự \texttt{a-z} in thường có độ dài đúng bằng $n$ là xâu hợp lệ, chia lấy dư cho $10^{9} + 7$.
+
+\makesection{Input}
+\begin{itemize}
+    \item Dòng đầu tiên chứa số nguyên $n, m \, (1 \le n \le 100, 0 \le m \le 150)$.
+    \item Mỗi dòng trong $m$ dòng tiếp theo chứa một xâu gồm các kí tự \texttt{a-z} in thường là xâu cấm.
+\end{itemize}
+
+\makesection{Output}
+\begin{itemize}
+    \item In ra một số nguyên duy nhất là kết quả bài toán, chia lấy dư cho $10^{9} + 7$.
+\end{itemize}
+
+\begin{makesubtasks}
+    \subtask{20} $m = 0$.
+    \subtask{20} $n \le 3, m \le 10$.
+    \subtask{20} $m = 1$.
+    \subtask{20} $n, m \le 50$.
+    \subtask{20} Không có ràng buộc gì thêm.
+\end{makesubtasks}
+
+\makesection{Ví dụ}
+
+\subsubsection*{Ví dụ 1}
+\begin{makesample}
+\begin{lstlisting}
+2 2
+a
+bc
+\end{lstlisting}
+\nextsample
+\begin{lstlisting}
+624
+\end{lstlisting}
+\end{makesample}
