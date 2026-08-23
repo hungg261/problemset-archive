@@ -1,0 +1,51 @@
+\makeproblem{BoiSo}{Tìm Bội Số (5đ)}{1.0s}{256 MB}
+
+Viết chương trình nhập vào 1 số nguyên dương $n\ (0 < n \le 32\;000)$. Hãy cho
+biết số nguyên này là bội của tổng tất cả các chữ số của nó hay không? Nếu không
+thì hãy tìm một số nguyên dương $m$ nhỏ hơn gần $n$ nhất để cho $m$ thỏa mãn tính chất
+trên?
+
+\makesection{Input}
+\begin{itemize}
+    \item Gồm một dòng duy nhất chứa số $n$.
+\end{itemize}
+
+\makesection{Output}
+\begin{itemize}
+    \item In ra một số nguyên dương $m$ cần tìm.
+\end{itemize}
+
+\makesection{Ví dụ}
+
+\subsubsection*{Ví dụ 1}
+\begin{makesample}
+\begin{lstlisting}
+12
+\end{lstlisting}
+\nextsample
+\begin{lstlisting}
+12
+\end{lstlisting}
+\end{makesample}
+
+\begin{explain}
+Vì số $12$ là bội của $1+2$.
+\end{explain}
+
+\subsubsection*{Ví dụ 2}
+\begin{makesample}
+\begin{lstlisting}
+25
+\end{lstlisting}
+\nextsample
+\begin{lstlisting}
+24
+\end{lstlisting}
+\end{makesample}
+
+\begin{explain}
+Số $25$ không là bội của $2 + 5$, số
+nguyên dương nhỏ hơn gần số $25$
+nhất là số $24$ thỏa mãn tính chất
+trên.
+\end{explain}
