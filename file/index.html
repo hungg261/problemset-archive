@@ -227,11 +227,11 @@
 
             if (!isSafe) {
                 const titleEl = document.getElementById('file-name');
-                titleEl.textContent = 'Lỗi truy cập: Đường dẫn không hợp lệ.';
+                titleEl.textContent = 'Lỗi truy cập: Đường dẫn không hợp lệ!';
                 titleEl.style.color = '#dc2626';
                 document.getElementById('download-link').style.display = 'none';
                 document.getElementById('pdf-iframe').style.display = 'none';
-                throw new Error("Bảo mật: Yêu cầu tải file bị từ chối.");
+                throw new Error("Access denied");
             }
 
             const fileName = pdfUrl.split('/').pop();
@@ -244,8 +244,16 @@
             }
 
             document.getElementById('download-link').href = absoluteUrl;
-            document.getElementById('pdf-iframe').src = absoluteUrl;
-            
+
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            const fullUrl = window.location.origin + absoluteUrl;
+
+            if (isMobile) {
+                document.getElementById('pdf-iframe').src = `https://docs.google.com/gview?url=${encodeURIComponent(fullUrl)}&embedded=true`;
+            } else {
+                document.getElementById('pdf-iframe').src = absoluteUrl;
+            }
+
         } else {
             document.getElementById('file-name').textContent = 'Không tìm thấy tài liệu';
             document.getElementById('download-link').style.display = 'none';
