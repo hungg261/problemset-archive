@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xem Tài Liệu PDF</title>
+    
+    <link rel="icon" href="/assets/bright-bg.ico" media="(prefers-color-scheme: light)">
+    <link rel="icon" href="/assets/dark-bg.ico" media="(prefers-color-scheme: dark)">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --primary-color: #1e293b;
+            --primary-hover: #2563eb;
+            --accent-bg: #f1f5f9;
+            --accent-border: #2563eb;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 24px 16px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            padding: 24px;
+            flex-grow: 1; /* Đẩy footer xuống dưới cùng nếu trang ngắn */
+        }
+
+        .pdf-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .left-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* Tùy chỉnh Logo */
+        .logo-link {
+            display: flex;
+            align-items: center;
+            padding-right: 16px;
+            border-right: 1px solid var(--border-color);
+            transition: opacity 0.2s ease;
+        }
+
+        .logo-link:hover {
+            opacity: 0.75;
+        }
+
+        .header-logo {
+            height: 32px; /* Chỉnh độ lớn của logo tại đây */
+            width: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .pdf-title {
+            font-family: 'Merriweather', Georgia, serif;
+            font-size: 18px;
+            color: var(--primary-color);
+            font-weight: 700;
+            word-break: break-all;
+        }
+
+        .download-btn {
+            color: var(--primary-hover);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .download-btn:hover {
+            text-decoration: underline;
+        }
+
+        .pdf-wrapper {
+            width: 100%;
+            height: 80vh;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+            background: var(--accent-bg);
+        }
+
+        .pdf-viewer {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Tùy chỉnh Footer tối giản */
+        .site-footer {
+            text-align: center;
+            padding-top: 24px;
+            font-size: 13.5px;
+            color: var(--text-muted);
+        }
+
+        .site-footer a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .site-footer a:hover {
+            color: var(--primary-hover);
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 12px 8px;
+            }
+
+            .container {
+                padding: 16px;
+            }
+
+            .pdf-wrapper {
+                height: 70vh;
+            }
+
+            .pdf-actions {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .left-actions {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .logo-link {
+                border-right: none;
+                padding-right: 0;
+            }
+            
+            .header-logo {
+                height: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="pdf-actions">
+            <div class="left-actions">
+                <a href="/" class="logo-link" title="Về trang chủ">
+                    <img src="/assets/bright-bg.png" alt="Logo" class="header-logo">
+                </a>
+                <h2 class="pdf-title" id="file-name">Đang tải tài liệu...</h2>
+            </div>
+            <a href="#" id="download-link" target="_blank" class="download-btn">Tải file gốc ↗</a>
+        </div>
+
+        <div class="pdf-wrapper">
+            <iframe id="pdf-iframe" class="pdf-viewer"></iframe>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <p>Problemset Archive <a href="/">&bull; Về trang chủ</a></p>
+    </footer>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        let pdfUrl = urlParams.get('src');
+
+        if (pdfUrl) {
+            let isSafe = true;
+
+            if (!pdfUrl.toLowerCase().split('?')[0].endsWith('.pdf')) {
+                isSafe = false;
+            }
+
+            if (pdfUrl.includes('../')) {
+                isSafe = false;
+            }
+
+            if (pdfUrl.startsWith('http://') || pdfUrl.startsWith('https://') || pdfUrl.startsWith('//')) {
+                try {
+                    const parsedUrl = new URL(pdfUrl, window.location.origin);
+                    if (parsedUrl.origin !== window.location.origin) {
+                        isSafe = false;
+                    }
+                } catch (e) {
+                    isSafe = false;
+                }
+            }
+
+            if (!isSafe) {
+                const titleEl = document.getElementById('file-name');
+                titleEl.textContent = 'Lỗi truy cập: Đường dẫn không hợp lệ.';
+                titleEl.style.color = '#dc2626';
+                document.getElementById('download-link').style.display = 'none';
+                document.getElementById('pdf-iframe').style.display = 'none';
+                throw new Error("Bảo mật: Yêu cầu tải file bị từ chối.");
+            }
+
+            const fileName = pdfUrl.split('/').pop();
+            document.getElementById('file-name').textContent = decodeURIComponent(fileName);
+            document.title = decodeURIComponent(fileName) + " - Xem tài liệu";
+
+            let absoluteUrl = pdfUrl;
+            if (!absoluteUrl.startsWith('http://') && !absoluteUrl.startsWith('https://') && !absoluteUrl.startsWith('/')) {
+                absoluteUrl = '/' + absoluteUrl;
+            }
+
+            document.getElementById('download-link').href = absoluteUrl;
+            document.getElementById('pdf-iframe').src = absoluteUrl;
+            
+        } else {
+            document.getElementById('file-name').textContent = 'Không tìm thấy tài liệu';
+            document.getElementById('download-link').style.display = 'none';
+            document.getElementById('pdf-iframe').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
