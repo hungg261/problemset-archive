@@ -12,7 +12,7 @@ gen ${i} --max_n=0 --min_t=${E9} --max_t=${E9} --min_q=${E5} --max_q=${E5} --par
 
 <#-- Subtask 2 -->
 <#list 1..8 as i>
-gen ${i} --min_n=1 --max_n=1 --min_t=${E9} --max_t=${E9} --min_q=${E5} --max_q=${E5} --param=edge --exclude="-" > $
+gen ${i} --min_n=1 --max_n=1 --min_t=${E9} --max_t=${E9} --min_q=${E5} --max_q=${E5} --param=edge --exclude=- > $
 </#list>
 
 <#-- Subtask 3 -->
