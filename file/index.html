@@ -193,11 +193,11 @@
                 </a>
                 <h2 class="pdf-title" id="file-name">Đang tải tài liệu...</h2>
             </div>
-            <a href="#" id="download-link" target="_blank" class="download-btn">Tải file gốc ↗</a>
+            <a href="#" id="download-link" target="_blank" rel="noopener noreferrer" class="download-btn">Tải file gốc ↗</a>
         </div>
 
         <div class="pdf-wrapper">
-            <iframe id="pdf-iframe" class="pdf-viewer"></iframe>
+            <iframe id="pdf-iframe" class="pdf-viewer" referrerpolicy="no-referrer"></iframe>
         </div>
 
         <p><strong style="color: #ff9800;">Tip:</strong> Nếu file không hiển thị, hãy thử reload lại trang!</p>
@@ -209,52 +209,66 @@
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        let pdfUrl = urlParams.get('src');
+        const rawPdfUrl = urlParams.get('src');
+
+        function getSafePdfUrl(value) {
+            if (!value || value.includes('\\') || /[\u0000-\u001f\u007f]/.test(value)) {
+                return null;
+            }
+
+            let decodedValue = value;
+            try {
+                for (let attempt = 0; attempt < 3; attempt += 1) {
+                    const nextValue = decodeURIComponent(decodedValue);
+                    if (nextValue === decodedValue) {
+                        break;
+                    }
+                    decodedValue = nextValue;
+                }
+            } catch (error) {
+                return null;
+            }
+
+            const pathBeforeNormalization = decodedValue.split(/[?#]/, 1)[0];
+            if (pathBeforeNormalization.split('/').some((segment) => segment === '..')) {
+                return null;
+            }
+
+            try {
+                const parsedUrl = new URL(value, window.location.origin);
+                const isHttp = parsedUrl.protocol === 'http:' || parsedUrl.protocol === 'https:';
+                const isSameOrigin = parsedUrl.origin === window.location.origin;
+                const hasCredentials = parsedUrl.username !== '' || parsedUrl.password !== '';
+
+                if (!isHttp || !isSameOrigin || hasCredentials || !parsedUrl.pathname.toLowerCase().endsWith('.pdf')) {
+                    return null;
+                }
+
+                return parsedUrl;
+            } catch (error) {
+                return null;
+            }
+        }
+
+        const pdfUrl = getSafePdfUrl(rawPdfUrl);
 
         if (pdfUrl) {
-            let isSafe = true;
-
-            if (!pdfUrl.toLowerCase().split('?')[0].endsWith('.pdf')) {
-                isSafe = false;
+            const fileName = pdfUrl.pathname.split('/').pop();
+            let displayName;
+            try {
+                displayName = decodeURIComponent(fileName);
+            } catch (error) {
+                displayName = fileName;
             }
 
-            if (pdfUrl.includes('../')) {
-                isSafe = false;
-            }
+            document.getElementById('file-name').textContent = displayName;
+            document.title = displayName + " - Xem tài liệu";
 
-            if (pdfUrl.startsWith('http://') || pdfUrl.startsWith('https://') || pdfUrl.startsWith('//')) {
-                try {
-                    const parsedUrl = new URL(pdfUrl, window.location.origin);
-                    if (parsedUrl.origin !== window.location.origin) {
-                        isSafe = false;
-                    }
-                } catch (e) {
-                    isSafe = false;
-                }
-            }
-
-            if (!isSafe) {
-                const titleEl = document.getElementById('file-name');
-                titleEl.textContent = 'Lỗi truy cập: Đường dẫn không hợp lệ!';
-                titleEl.style.color = '#dc2626';
-                document.getElementById('download-link').style.display = 'none';
-                document.getElementById('pdf-iframe').style.display = 'none';
-                throw new Error("Access denied");
-            }
-
-            const fileName = pdfUrl.split('/').pop();
-            document.getElementById('file-name').textContent = decodeURIComponent(fileName);
-            document.title = decodeURIComponent(fileName) + " - Xem tài liệu";
-
-            let absoluteUrl = pdfUrl;
-            if (!absoluteUrl.startsWith('http://') && !absoluteUrl.startsWith('https://') && !absoluteUrl.startsWith('/')) {
-                absoluteUrl = '/' + absoluteUrl;
-            }
-
+            const absoluteUrl = pdfUrl.href;
             document.getElementById('download-link').href = absoluteUrl;
 
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-            const fullUrl = window.location.origin + absoluteUrl;
+            const fullUrl = absoluteUrl;
 
             if (isMobile) {
                 document.getElementById('pdf-iframe').src = `https://docs.google.com/gview?url=${encodeURIComponent(fullUrl)}&embedded=true`;
@@ -263,7 +277,11 @@
             }
 
         } else {
-            document.getElementById('file-name').textContent = 'Không tìm thấy tài liệu';
+            const titleEl = document.getElementById('file-name');
+            titleEl.textContent = rawPdfUrl ? 'Lỗi truy cập: Đường dẫn không hợp lệ!' : 'Không tìm thấy tài liệu';
+            if (rawPdfUrl) {
+                titleEl.style.color = '#dc2626';
+            }
             document.getElementById('download-link').style.display = 'none';
             document.getElementById('pdf-iframe').style.display = 'none';
         }
