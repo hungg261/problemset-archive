@@ -2,11 +2,7 @@
 
 Kho lưu trữ đề thi/bộ test các kỳ thi lập trình thi đấu Tin học. Bộ test tuân theo định dạng Polygon, sử dụng `testlib.h`.
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/dark-bg.png">
-  <source media="(prefers-color-scheme: light)" srcset="assets/bright-bg.png">
-  <img alt="Project Logo" src="assets/logo.png" style="width: 250px; height: auto;">
-</picture>
+<img alt="Project Logo" src="assets/logo.png" style="width: 250px; height: auto;">
 
 <hr>
 
