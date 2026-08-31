@@ -16,16 +16,24 @@
 
     <div class="container">
         <div class="header">
-            <img class="header-logo" alt="Project Logo" src="assets/logo.png" style="width: 60px; height: auto;">
-            <div class="header-info">
-                <h1>Problemset Archive</h1>
-                <p>
-                    <span>Tác giả: <strong>hungg261</strong></span>
-                    <span class="header-tag">Đề thi & Testcase</span>
-                    <span class="header-tag">Polygon/testlib.h</span>
-                    <span class="header-tag">MIT License</span>
-                </p>
+            <div class="header-main">
+                <img class="header-logo" alt="Project Logo" src="assets/logo.png" style="width: 60px; height: auto;">
+                <div class="header-info">
+                    <h1>Problemset Archive</h1>
+                    <p>
+                        <span>Tác giả: <strong>hungg261</strong></span>
+                        <span class="header-tag">Đề thi & Testcase</span>
+                        <span class="header-tag">Polygon/testlib.h</span>
+                        <span class="header-tag">MIT License</span>
+                    </p>
+                </div>
             </div>
+
+            <nav class="top-nav" aria-label="Điều hướng chính">
+                <a href="https://hungg261.id.vn/" class="nav-link">Trang chủ</a>
+                <a href="#faq" class="nav-link">FAQ</a>
+                <a href="https://github.com/hungg261/problemset-archive" class="nav-link" target="_blank" rel="noopener noreferrer">Xem trên GitHub ↗</a>
+            </nav>
         </div>
 
         <div class="content">
@@ -87,11 +95,15 @@
                     <pre id="license-content" class="license-pre"></pre>
                 </details>
             </div>
+
+            <section id="faq" class="faq-container" aria-labelledby="faq-title">
+                <h2 id="faq-title" class="section-title">FAQ</h2>
+                <div id="faq-list" class="faq-list"></div>
+            </section>
         </div>
 
         <div class="footer">
-            <a id="fb-link" href="https://hungg261.id.vn">Trang chủ</a>
-            <a id="repo-link" href="#" target="_blank">Xem trên GitHub ↗</a>
+            <span>Problemset Archive</span>
         </div>
     </div>
 
@@ -100,7 +112,55 @@
         const REPO = 'problemset-archive';
         const BASE_PATH = 'problems';
 
-        document.getElementById('repo-link').href = `https://github.com/${OWNER}/${REPO}`;
+        const FAQ_ITEMS = [
+            {
+                question: 'Đây là dự án gì?',
+                answer: 'Đây là dự án tổng hợp các đề thi tin học, bộ test tự soạn và tài liệu liên quan trong kho lưu trữ, giúp bạn dễ tra cứu và sử dụng.'
+            },
+            {
+                question: 'Nó có miễn phí không và bản quyền thế nào?',
+                answer: 'Dự án hoàn toàn miễn phí dưới <strong>Giấy phép MIT</strong>: Bạn được tự do sao chép, chỉnh sửa hay thương mại hóa, miễn là giữ nguyên thông báo bản quyền gốc; tài liệu được cung cấp "nguyên trạng" (as-is) và tác giả miễn trừ mọi trách nhiệm phát sinh.'
+            },
+            {
+                question: 'Tôi có thể đóng góp không?',
+                answer: 'Hoàn toàn có. Bạn có thể đóng góp đề bài, lời giải, sửa lỗi hoặc tối ưu code bằng cách liên hệ qua email <a href="mailto:contact@hungg261.id.vn">contact@hungg261.id.vn</a> hoặc trực tiếp qua mạng xã hội.'
+            },
+            {
+                question: 'Làm thế nào để sử dụng các bộ test?',
+                answer: 'Mình có đưa các bộ test lên nhóm trên Codeforces. Bạn có thể truy cập <a href="https://hungg261.id.vn/cfgroup" target="_blank" rel="noopener">group Codeforces</a> của mình để nộp bài và xem thử. Mình sẽ hướng dẫn cách tự tạo bộ test sau.'
+            },
+            {
+                question: 'Tại sao lại đặt tên là Problemset Archive?',
+                answer: 'Tại vì đây là một kho lưu trữ bài tập, và Problemset Archive cũng... có nghĩa là kho lưu trữ bài tập.'
+            }
+        ];
+
+
+        function renderFaq() {
+            const faqList = document.getElementById('faq-list');
+            if (!faqList) return;
+
+            faqList.innerHTML = FAQ_ITEMS.map((item) => `
+                <div class="faq-item">
+                    <div class="faq-question">${item.question}</div>
+                    <div class="faq-answer">${item.answer}</div>
+                </div>
+            `).join('');
+        }
+
+        function scrollToHashTarget() {
+            const targetId = window.location.hash.replace('#', '');
+            if (!targetId) return;
+
+            const target = document.getElementById(targetId);
+            if (target) {
+                setTimeout(() => {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 50);
+            }
+        }
+
+        window.addEventListener('hashchange', scrollToHashTarget);
 
         async function fetchFullTree() {
             const url = `https://api.github.com/repos/${OWNER}/${REPO}/git/trees/main?recursive=1`;
@@ -203,6 +263,9 @@
         async function init() {
             const container = document.getElementById('tree');
             const countBadge = document.getElementById('problem-count');
+
+            renderFaq();
+            scrollToHashTarget();
             
             const [allFiles, readmeText, licenseText] = await Promise.all([
                 fetchFullTree(),
