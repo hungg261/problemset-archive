@@ -235,7 +235,9 @@
             }
 
             try {
-                const parsedUrl = new URL(value, window.location.origin);
+                const isFilePath = decodedValue.startsWith('file/');
+                const baseUrl = isFilePath ? window.location.origin : new URL('./', window.location.href);
+                const parsedUrl = new URL(value, baseUrl);
                 const isHttp = parsedUrl.protocol === 'http:' || parsedUrl.protocol === 'https:';
                 const isSameOrigin = parsedUrl.origin === window.location.origin;
                 const hasCredentials = parsedUrl.username !== '' || parsedUrl.password !== '';
